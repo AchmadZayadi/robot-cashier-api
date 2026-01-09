@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.3 on darwin)" generated="2026-01-07T09:43:54.461996" rpa="false" schemaversion="5">
+<suite id="s1" name="Login" source="/Users/achmadzayadi/Desktop/automation-learning/automation-cashier/test/login.robot">
+<test id="s1-t1" name="TC05 Login - Timeout [504]" line="41">
+<kw name="Login - Timeout 504" owner="key_login">
+<kw name="Set headers" owner="key_login">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-07T09:43:54.814446" level="INFO">${headers} = {'timestamp': '1726033478', 'geolocation': '77665544332211', 'appsId': 'appsid'}</msg>
+<var>${headers}</var>
+<arg>timestamp=${TIMESTAMP}</arg>
+<arg>geolocation=${GEOLOCATION}</arg>
+<arg>appsId=${APPS_ID}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.812716" elapsed="0.009850"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-01-07T09:43:54.823533" elapsed="0.000394"/>
+</return>
+<msg time="2026-01-07T09:43:54.824526" level="INFO">${header} = {'timestamp': '1726033478', 'geolocation': '77665544332211', 'appsId': 'appsid'}</msg>
+<var>${header}</var>
+<status status="PASS" start="2026-01-07T09:43:54.807799" elapsed="0.016959"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-07T09:43:54.826018" level="INFO">Creating Session using : alias=LoginTimeout, url=http://localhost:3006/v1/auth/login/504, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>LoginTimeout</arg>
+<arg>${ENDPOINT_LOGIN_504}</arg>
+<arg>verify=${True}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-07T09:43:54.825131" elapsed="0.001472"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-01-07T09:43:54.940373" level="INFO">GET Request : url=http://localhost:3006/v1/auth/login/504 
+ path_url=/v1/auth/login/504 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'timestamp': '1726033478', 'geolocation': '77665544332211', 'appsId': 'appsid'} 
+ body=None 
+ </msg>
+<msg time="2026-01-07T09:43:54.940873" level="INFO">GET Response : url=http://localhost:3006/v1/auth/login/504 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With', 'Content-Length': '102', 'Date': 'Wed, 07 Jan 2026 02:43:54 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={
+  "responseCode": 504,
+  "status": "error",
+  "message": "Auth service is temporarily unavailable"
+} 
+ </msg>
+<msg time="2026-01-07T09:43:54.941368" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>LoginTimeout</arg>
+<arg>${ENDPOINT_LOGIN_504}</arg>
+<arg>headers=${header}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.827035" elapsed="0.114587"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2026-01-07T09:43:54.944275" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.942162" elapsed="0.002542"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-07T09:43:54.945679" level="INFO">&lt;Response [200]&gt;</msg>
+<arg>${response}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.945163" elapsed="0.000774"/>
+</kw>
+<return>
+<value>${response.json()}</value>
+<status status="PASS" start="2026-01-07T09:43:54.946145" elapsed="0.000201"/>
+</return>
+<msg time="2026-01-07T09:43:54.947694" level="INFO">${response} = {'responseCode': 504, 'status': 'error', 'message': 'Auth service is temporarily unavailable'}</msg>
+<var>${response}</var>
+<status status="PASS" start="2026-01-07T09:43:54.805632" elapsed="0.142277"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-07T09:43:54.949424" level="INFO">Response: {'responseCode': 504, 'status': 'error', 'message': 'Auth service is temporarily unavailable'}</msg>
+<arg>Response: ${response}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.948747" elapsed="0.000951"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-07T09:43:54.951937" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response['responseCode']}</arg>
+<arg>504</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.950600" elapsed="0.001624"/>
+</kw>
+<kw name="Validate Login Error 504 Response" owner="login_response">
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${response}</arg>
+<arg>responseCode</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.953857" elapsed="0.001562"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${response}</arg>
+<arg>status</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.955795" elapsed="0.000521"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${response}</arg>
+<arg>message</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-01-07T09:43:54.956639" elapsed="0.000490"/>
+</kw>
+<arg>${response}</arg>
+<status status="PASS" start="2026-01-07T09:43:54.953003" elapsed="0.004362"/>
+</kw>
+<status status="PASS" start="2026-01-07T09:43:54.802965" elapsed="0.155045"/>
+</test>
+<status status="PASS" start="2026-01-07T09:43:54.468621" elapsed="0.493192"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Login" id="s1" pass="1" fail="0" skip="0">Login</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
