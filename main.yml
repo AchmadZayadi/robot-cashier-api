@@ -1,0 +1,56 @@
+name: Robot Framework CI with PDF Report
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ development ]
+
+jobs:
+  test-and-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          pip install robotframework robotframework-requests fpdf matplotlib
+          # Tambahkan library lain jika diperlukan
+
+      - name: Run Robot Framework
+        run: |
+          mkdir -p results
+          robot -d results tests/ || true # '|| true' agar step tetap lanjut meski ada test yang gagal
+
+      - name: Generate PDF Report
+        run: |
+          python library/generate_pdf_report.py
+        # Pastikan script python ini ada di root folder project Anda
+
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Konfigurasi SMTP (Gunakan Secrets untuk Keamanan)
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Automation Test Report: ${{ github.repository }}"
+          to: "buehdeveloper@gmail.com" # Ganti dengan email tujuan
+          from: "GitHub Actions Automation"
+          body: |
+            Halo Team,
+            
+            Automation test untuk repository ${{ github.repository }} telah selesai dijalankan.
+            Berikut terlampir laporan detail dalam format PDF.
+            
+            Status: ${{ job.status }}
+            Branch: ${{ github.ref_name }}
+          attachments: Automation_Final_Report.pdf
