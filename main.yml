@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ development ]
+    branches: [ main ]
 
 jobs:
   test-and-report:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Generate PDF Report
         run: |
-          python library/generate_pdf_report.py
+          python3 library/generate_pdf_report.py
         # Pastikan script python ini ada di root folder project Anda
 
       - name: Send Email Notification
