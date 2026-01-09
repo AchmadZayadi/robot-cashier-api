@@ -1,5 +1,6 @@
 #!/bin/bash
-
+#zayaditest1
+#zayaditest3
 
 mkdir -p results
 
